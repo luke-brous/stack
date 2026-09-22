@@ -2,5 +2,6 @@
 
 from stack.app.models.base import Base
 from stack.app.models.vitamin import Vitamin, VitaminLog
+from stack.app.models.weight import WeightLog
 
-__all__ = ["Base", "Vitamin", "VitaminLog"]
+__all__ = ["Base", "Vitamin", "VitaminLog", "WeightLog"]

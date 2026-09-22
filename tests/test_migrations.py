@@ -18,7 +18,15 @@ def test_initial_migration_creates_vitamin_tables_and_database_cascade(
     command.upgrade(config, "head")
 
     engine = create_database_engine(database_url)
-    assert {"vitamins", "vitamin_logs"}.issubset(inspect(engine).get_table_names())
+    inspector = inspect(engine)
+    assert {"vitamins", "vitamin_logs", "weight_logs"}.issubset(
+        inspector.get_table_names()
+    )
+    weight_unique_columns = {
+        tuple(constraint["column_names"])
+        for constraint in inspector.get_unique_constraints("weight_logs")
+    }
+    assert ("log_date",) in weight_unique_columns
 
     with engine.begin() as connection:
         connection.execute(

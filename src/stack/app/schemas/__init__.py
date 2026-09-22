@@ -7,6 +7,7 @@ from stack.app.schemas.vitamin import (
     VitaminRead,
     VitaminUpdate,
 )
+from stack.app.schemas.weight import WeightCreate, WeightRead, WeightUpdate
 
 __all__ = [
     "VitaminCreate",
@@ -14,4 +15,7 @@ __all__ = [
     "VitaminLogRead",
     "VitaminRead",
     "VitaminUpdate",
+    "WeightCreate",
+    "WeightRead",
+    "WeightUpdate",
 ]

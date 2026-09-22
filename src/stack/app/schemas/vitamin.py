@@ -13,6 +13,8 @@ from pydantic import (
     model_validator,
 )
 
+from stack.app.schemas.common import UTCResponseModel
+
 
 class VitaminBase(BaseModel):
     """Fields shared by vitamin create and response payloads."""
@@ -47,19 +49,6 @@ class VitaminUpdate(BaseModel):
             if field_name in self.model_fields_set and getattr(self, field_name) is None:
                 raise ValueError(f"{field_name} cannot be null")
         return self
-
-
-class UTCResponseModel(BaseModel):
-    """Base response model that exposes stored timestamps explicitly as UTC."""
-
-    model_config = ConfigDict(from_attributes=True)
-
-    @field_validator("created_at", "updated_at", "taken_at", mode="before", check_fields=False)
-    @classmethod
-    def normalize_utc(cls, value: datetime) -> datetime:
-        if value.tzinfo is None:
-            return value.replace(tzinfo=UTC)
-        return value.astimezone(UTC)
 
 
 class VitaminRead(VitaminBase, UTCResponseModel):
