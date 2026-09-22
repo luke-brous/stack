@@ -19,10 +19,14 @@ def test_migrations_create_tables_and_database_constraints(
 
     engine = create_database_engine(database_url)
     inspector = inspect(engine)
-    assert {"vitamins", "vitamin_logs", "weight_logs", "protein_logs"}.issubset(
-        inspector.get_table_names()
-    )
-    for table_name in ("weight_logs", "protein_logs"):
+    assert {
+        "vitamins",
+        "vitamin_logs",
+        "weight_logs",
+        "protein_logs",
+        "lift_logs",
+    }.issubset(inspector.get_table_names())
+    for table_name in ("weight_logs", "protein_logs", "lift_logs"):
         unique_columns = {
             tuple(constraint["column_names"])
             for constraint in inspector.get_unique_constraints(table_name)
