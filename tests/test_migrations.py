@@ -7,7 +7,7 @@ from sqlalchemy import inspect, text
 from stack.app.db import create_database_engine
 
 
-def test_initial_migration_creates_vitamin_tables_and_database_cascade(
+def test_migrations_create_tables_and_database_constraints(
     tmp_path: Path, monkeypatch,
 ) -> None:
     monkeypatch.delenv("DATABASE_URL", raising=False)
@@ -19,14 +19,15 @@ def test_initial_migration_creates_vitamin_tables_and_database_cascade(
 
     engine = create_database_engine(database_url)
     inspector = inspect(engine)
-    assert {"vitamins", "vitamin_logs", "weight_logs"}.issubset(
+    assert {"vitamins", "vitamin_logs", "weight_logs", "protein_logs"}.issubset(
         inspector.get_table_names()
     )
-    weight_unique_columns = {
-        tuple(constraint["column_names"])
-        for constraint in inspector.get_unique_constraints("weight_logs")
-    }
-    assert ("log_date",) in weight_unique_columns
+    for table_name in ("weight_logs", "protein_logs"):
+        unique_columns = {
+            tuple(constraint["column_names"])
+            for constraint in inspector.get_unique_constraints(table_name)
+        }
+        assert ("log_date",) in unique_columns
 
     with engine.begin() as connection:
         connection.execute(
