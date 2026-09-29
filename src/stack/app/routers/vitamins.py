@@ -106,7 +106,7 @@ def list_vitamin_logs(
     query = (
         select(VitaminLog)
         .where(VitaminLog.taken_at >= start_utc, VitaminLog.taken_at < end_utc)
-        .order_by(VitaminLog.taken_at)
+        .order_by(VitaminLog.taken_at, VitaminLog.id)
     )
     if vitamin_id is not None:
         query = query.where(VitaminLog.vitamin_id == vitamin_id)
