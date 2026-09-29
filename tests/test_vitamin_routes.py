@@ -106,7 +106,10 @@ def test_vitamin_logs_allow_repeat_doses_and_date_filters(
         headers=auth_headers,
     )
     assert matching.status_code == 200
-    assert len(matching.json()) == 2
+    assert [log["id"] for log in matching.json()] == [
+        first_response.json()["id"],
+        second_response.json()["id"],
+    ]
 
     outside_range = client.get(
         "/vitamin-logs?start=2026-09-23&end=2026-09-23",
