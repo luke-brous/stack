@@ -11,4 +11,7 @@ wheels/
 *.db
 __pycache__/
 .venv/
-.env 
+.env
+
+*.ipynb
+spec.md

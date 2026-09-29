@@ -1,0 +1,20 @@
+# Set the app name with `fly launch --no-deploy` or pass `-a APP_NAME` to fly commands.
+
+[build]
+  dockerfile = "Dockerfile"
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = "off"
+
+[[mounts]]
+  source = "data"
+  destination = "/data"
+
+[[http_service.checks]]
+  interval = "30s"
+  timeout = "5s"
+  grace_period = "10s"
+  method = "GET"
+  path = "/health"
