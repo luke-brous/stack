@@ -25,8 +25,9 @@ def test_migrations_create_tables_and_database_constraints(
         "weight_logs",
         "protein_logs",
         "lift_logs",
+        "sleep_logs",
     }.issubset(inspector.get_table_names())
-    for table_name in ("weight_logs", "protein_logs", "lift_logs"):
+    for table_name in ("weight_logs", "protein_logs", "lift_logs", "sleep_logs"):
         unique_columns = {
             tuple(constraint["column_names"])
             for constraint in inspector.get_unique_constraints(table_name)

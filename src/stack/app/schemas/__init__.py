@@ -2,6 +2,7 @@
 
 from stack.app.schemas.lift import LiftCreate, LiftRead, LiftUpdate
 from stack.app.schemas.protein import ProteinCreate, ProteinRead, ProteinUpdate
+from stack.app.schemas.sleep import SleepCreate, SleepRead, SleepUpdate
 from stack.app.schemas.vitamin import (
     VitaminCreate,
     VitaminLogCreate,
@@ -18,6 +19,9 @@ __all__ = [
     "ProteinCreate",
     "ProteinRead",
     "ProteinUpdate",
+    "SleepCreate",
+    "SleepRead",
+    "SleepUpdate",
     "VitaminCreate",
     "VitaminLogCreate",
     "VitaminLogRead",
